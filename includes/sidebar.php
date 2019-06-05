@@ -29,11 +29,20 @@
 	  	</div>
 	  	<div class="box-body">
 	    	<p>Obtenez des mises à jour gratuites sur les derniers produits et remises, directement dans votre boîte de réception.</p>
-	    	<form method="POST" action="">
+			    <?php	if(isset($_SESSION['success'])){
+			        echo "
+			          <div class='callout callout-success text-center'>
+			            <p>".$_SESSION['success']."</p> 
+			          </div>
+			        ";
+			        unset($_SESSION['success']);
+			      }
+			    ?>
+	    	<form method="POST" action="abonne.php">
 		    	<div class="input-group">
-	                <input type="text" class="form-control">
+	                <input type="text" name="email" class="form-control">
 	                <span class="input-group-btn">
-	                    <button type="button" class="btn btn-info btn-flat"><i class="fa fa-envelope"></i> </button>
+	                    <button type="submit" name="send" class="btn btn-info btn-flat"><i class="fa fa-envelope"></i> </button>
 	                </span>
 	            </div>
 		    </form>

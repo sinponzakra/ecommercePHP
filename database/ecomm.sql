@@ -1,75 +1,134 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.11
--- http://www.phpmyadmin.net
+-- version 4.8.3
+-- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jul 09, 2018 at 03:25 PM
--- Server version: 5.6.21
--- PHP Version: 5.6.3
+-- Hôte : 127.0.0.1:3306
+-- Généré le :  mer. 05 juin 2019 à 12:08
+-- Version du serveur :  5.7.23
+-- Version de PHP :  7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `ecomm`
+-- Base de données :  `ecomm`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cart`
+-- Structure de la table `abonne`
 --
 
+DROP TABLE IF EXISTS `abonne`;
+CREATE TABLE IF NOT EXISTS `abonne` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `abonne`
+--
+
+INSERT INTO `abonne` (`id`, `email`) VALUES
+(1, 'abonnemoi@gmail.com');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `cart`
+--
+
+DROP TABLE IF EXISTS `cart`;
 CREATE TABLE IF NOT EXISTS `cart` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+  `quantity` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `cart`
+--
+
+INSERT INTO `cart` (`id`, `user_id`, `product_id`, `quantity`) VALUES
+(1, 9, 10, 1),
+(2, 9, 19, 1),
+(3, 9, 3, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `category`
+-- Structure de la table `category`
 --
 
+DROP TABLE IF EXISTS `category`;
 CREATE TABLE IF NOT EXISTS `category` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
-  `cat_slug` varchar(150) NOT NULL
+  `cat_slug` varchar(150) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `category`
+-- Déchargement des données de la table `category`
 --
 
 INSERT INTO `category` (`id`, `name`, `cat_slug`) VALUES
-(1, 'Laptops', 'laptops'),
-(2, 'Desktop PC', 'desktop-pc'),
-(3, 'Tablets', 'tablets'),
-(4, 'Smart Phones', '');
+(1, 'Ordinateurs portables', 'laptops'),
+(2, 'Ordinateur de bureau', 'desktop-pc'),
+(3, 'Tablettes', 'tablets'),
+(4, 'TÃ©lÃ©phones portables', '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `details`
+-- Structure de la table `contact`
 --
 
+DROP TABLE IF EXISTS `contact`;
+CREATE TABLE IF NOT EXISTS `contact` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(50) NOT NULL,
+  `nom` varchar(50) NOT NULL,
+  `message` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `contact`
+--
+
+INSERT INTO `contact` (`id`, `email`, `nom`, `message`) VALUES
+(1, 'test@gmail.com', 'assas  withas', 'wa9ila chi haja .ad ');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `details`
+--
+
+DROP TABLE IF EXISTS `details`;
 CREATE TABLE IF NOT EXISTS `details` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `sales_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL
+  `quantity` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `details`
+-- Déchargement des données de la table `details`
 --
 
 INSERT INTO `details` (`id`, `sales_id`, `product_id`, `quantity`) VALUES
@@ -84,11 +143,12 @@ INSERT INTO `details` (`id`, `sales_id`, `product_id`, `quantity`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `products`
+-- Structure de la table `products`
 --
 
+DROP TABLE IF EXISTS `products`;
 CREATE TABLE IF NOT EXISTS `products` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `category_id` int(11) NOT NULL,
   `name` text NOT NULL,
   `description` text NOT NULL,
@@ -96,164 +156,98 @@ CREATE TABLE IF NOT EXISTS `products` (
   `price` double NOT NULL,
   `photo` varchar(200) NOT NULL,
   `date_view` date NOT NULL,
-  `counter` int(11) NOT NULL
+  `counter` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `products`
+-- Déchargement des données de la table `products`
 --
 
 INSERT INTO `products` (`id`, `category_id`, `name`, `description`, `slug`, `price`, `photo`, `date_view`, `counter`) VALUES
-(1, 1, 'DELL Inspiron 15 7000 15.6', '<p>15-inch laptop ideal for gamers. Featuring the latest Intel&reg; processors for superior gaming performance, and life-like NVIDIA&reg; GeForce&reg; graphics and an advanced thermal cooling design.</p>\r\n', 'dell-inspiron-15-7000-15-6', 899, 'dell-inspiron-15-7000-15-6.jpg', '2018-07-09', 2),
-(2, 1, 'MICROSOFT Surface Pro 4 & Typecover - 128 GB', '<p>Surface Pro 4 powers through everything you need to do, while being lighter than ever before</p>\r\n\r\n<p>The 12.3 PixelSense screen has extremely high contrast and low glare so you can work through the day without straining your eyes</p>\r\n\r\n<p>keyboard is not included and needed to be purchased separately</p>\r\n\r\n<p>Features an Intel Core i5 6th Gen (Skylake) Core,Wireless: 802.11ac Wi-Fi wireless networking; IEEE 802.11a/b/g/n compatible Bluetooth 4.0 wireless technology</p>\r\n\r\n<p>Ships in Consumer packaging.</p>\r\n', 'microsoft-surface-pro-4-typecover-128-gb', 799, 'microsoft-surface-pro-4-typecover-128-gb.jpg', '2018-05-10', 3),
-(3, 1, 'DELL Inspiron 15 5000 15.6', '<p>Dell&#39;s 15.6-inch, midrange notebook is a bland, chunky block. It has long been the case that the Inspiron lineup lacks any sort of aesthetic muse, and the Inspiron 15 5000 follows this trend. It&#39;s a plastic, silver slab bearing Dell&#39;s logo in a mirror sheen.</p>\r\n\r\n<p>Lifting the lid reveals the 15.6-inch, 1080p screen surrounded by an almost offensively thick bezel and a plastic deck with a faux brushed-metal look. There&#39;s a fingerprint reader on the power button, and the keyboard is a black collection of island-style keys.</p>\r\n', 'dell-inspiron-15-5000-15-6', 599, 'dell-inspiron-15-5000-15-6.jpg', '2018-05-12', 1),
-(4, 1, 'LENOVO Ideapad 320s-14IKB 14" Laptop - Grey', '<p>- Made for portability with a slim, lightweight chassis design&nbsp;<br />\r\n<br />\r\n- Powerful processing helps you create and produce on the go&nbsp;<br />\r\n<br />\r\n- Full HD screen ensures crisp visuals for movies, web pages, photos and more&nbsp;<br />\r\n<br />\r\n- Enjoy warm, sparkling sound courtesy of two Harman speakers and Dolby Audio&nbsp;<br />\r\n<br />\r\n- Fast data transfer and high-quality video connection with USB-C and HDMI ports&nbsp;<br />\r\n<br />\r\nThe Lenovo&nbsp;<strong>IdeaPad 320s-14IKB 14&quot; Laptop</strong>&nbsp;is part of our Achieve range, which has the latest tech to help you develop your ideas and work at your best. It&#39;s great for editing complex documents, business use, editing photos, and anything else you do throughout the day.</p>\r\n', 'lenovo-ideapad-320s-14ikb-14-laptop-grey', 399, 'lenovo-ideapad-320s-14ikb-14-laptop-grey.jpg', '2018-05-10', 3),
-(5, 3, 'APPLE 9.7" iPad - 32 GB, Gold', '<p>9.7 inch Retina Display, 2048 x 1536 Resolution, Wide Color and True Tone Display</p>\r\n\r\n<p>Apple iOS 9, A9X chip with 64bit architecture, M9 coprocessor</p>\r\n\r\n<p>12 MP iSight Camera, True Tone Flash, Panorama (up to 63MP), Four-Speaker Audio</p>\r\n\r\n<p>Up to 10 Hours of Battery Life</p>\r\n\r\n<p>iPad Pro Supports Apple Smart Keyboard and Apple Pencil</p>\r\n', 'apple-9-7-ipad-32-gb-gold', 339, 'apple-9-7-ipad-32-gb-gold.jpg', '2018-07-09', 3),
-(6, 1, 'DELL Inspiron 15 5000 15', '<p>15-inch laptop delivering an exceptional viewing experience, a head-turning finish and an array of options designed to elevate your entertainment, wherever you go.</p>\r\n', 'dell-inspiron-15-5000-15', 449.99, 'dell-inspiron-15-5000-15.jpg', '0000-00-00', 0),
-(7, 3, 'APPLE 10.5" iPad Pro - 64 GB, Space Grey (2017)', '<p>4K video recording at 30 fps</p>\r\n\r\n<p>12-megapixel camera</p>\r\n\r\n<p>Fingerprint resistant coating</p>\r\n\r\n<p>Antireflective coating</p>\r\n\r\n<p>Face Time video calling</p>\r\n', 'apple-10-5-ipad-pro-64-gb-space-grey-2017', 619, 'apple-10-5-ipad-pro-64-gb-space-grey-2017.jpg', '0000-00-00', 0),
-(8, 1, 'ASUS Transformer Mini T102HA 10.1" 2 in 1 - Silver', '<p>Versatile Windows 10 device with keyboard and pen included, 2-in-1 functionality: use as both laptop and tablet.Update Windows periodically to ensure that your applications have the latest security settings.</p>\r\n\r\n<p>All day battery life, rated up to 11 hours of video playback; 128GB Solid State storage. Polymer Battery.With up to 11 hours between charges, you can be sure that Transformer Mini T102HA will be right there whenever you need it. You can charge T102HA via its micro USB port, so you can use a mobile charger or any power bank with a micro USB connector.</p>\r\n', 'asus-transformer-mini-t102ha-10-1-2-1-silver', 549.99, 'asus-transformer-mini-t102ha-10-1-2-1-silver.jpg', '0000-00-00', 0),
-(9, 2, 'PC SPECIALIST Vortex Core Lite Gaming PC', '<p>- Top performance for playing eSports and more&nbsp;<br />\r\n<br />\r\n- NVIDIA GeForce GTX graphics deliver smooth visuals&nbsp;<br />\r\n<br />\r\n- GeForce Experience delivers updates straight to your PC&nbsp;<br />\r\n<br />\r\nThe PC Specialist&nbsp;<strong>Vortex Core Lite&nbsp;</strong>is part of our Gaming range, bringing you the most impressive PCs available today. It has spectacular graphics and fast processing performance to suit the most exacting players.</p>\r\n', 'pc-specialist-vortex-core-lite-gaming-pc', 599.99, 'pc-specialist-vortex-core-lite-gaming-pc.jpg', '0000-00-00', 0),
-(10, 2, 'DELL Inspiron 5675 Gaming PC - Recon Blue', '<p>All-new gaming desktop featuring powerful AMD Ryzen&trade; processors, graphics ready for VR, LED lighting and a meticulous design for optimal cooling.</p>\r\n', 'dell-inspiron-5675-gaming-pc-recon-blue', 599.99, 'dell-inspiron-5675-gaming-pc-recon-blue.jpg', '2018-05-10', 1),
-(11, 2, 'HP Barebones OMEN X 900-099nn Gaming PC', '<p>What&#39;s inside matters.</p>\r\n\r\n<p>Without proper cooling, top tierperformance never reaches its fullpotential.</p>\r\n\r\n<p>Nine lighting zones accentuate theaggressive lines and smooth blackfinish of this unique galvanized steelcase.</p>\r\n', 'hp-barebones-omen-x-900-099nn-gaming-pc', 489.98, 'hp-barebones-omen-x-900-099nn-gaming-pc.jpg', '2018-05-12', 1),
-(12, 2, 'ACER Aspire GX-781 Gaming PC', '<p>- GTX 1050 graphics card lets you play huge games in great resolutions&nbsp;<br />\r\n<br />\r\n- Latest generation Core&trade; i5 processor can handle demanding media software&nbsp;<br />\r\n<br />\r\n- Superfast SSD storage lets you load programs in no time&nbsp;<br />\r\n<br />\r\nThe Acer&nbsp;<strong>Aspire&nbsp;GX-781 Gaming PC&nbsp;</strong>is part of our Gaming range, which offers the most powerful PCs available today. It has outstanding graphics and processing performance to suit the most demanding gamer.</p>\r\n', 'acer-aspire-gx-781-gaming-pc', 749.99, 'acer-aspire-gx-781-gaming-pc.jpg', '2018-05-12', 3),
-(13, 2, 'HP Pavilion Power 580-015na Gaming PC', '<p>Features the latest quad core Intel i5 processor and discrete graphics. With this power, you&rsquo;re ready to take on any activity from making digital art to conquering new worlds in VR.</p>\r\n\r\n<p>Choose the performance and storage you need. Boot up in seconds with to 128 GB SSD.</p>\r\n\r\n<p>Ditch the dull grey box, this desktop comes infused with style. A new angular bezel and bold green and black design give your workspace just the right amount of attitude.</p>\r\n\r\n<p>Up to 3 times faster performance - GeForce GTX 10-series graphics cards are powered by Pascal to deliver twice the performance of previous-generation graphics cards.</p>\r\n', 'hp-pavilion-power-580-015na-gaming-pc', 799.99, 'hp-pavilion-power-580-015na-gaming-pc.jpg', '2018-05-12', 1),
-(14, 2, 'LENOVO Legion Y520 Gaming PC', '<p>- Multi-task with ease thanks to Intel&reg; i5 processor&nbsp;<br />\r\n<br />\r\n- Prepare for battle with NVIDIA GeForce GTX graphics card&nbsp;<br />\r\n<br />\r\n- VR ready for the next-generation of immersive gaming and entertainment<br />\r\n<br />\r\n- Tool-less upgrade helps you personalise your system to your own demands&nbsp;<br />\r\n<br />\r\nPart of our Gaming range, which features the most powerful PCs available today, the Lenovo&nbsp;<strong>Legion Y520 Gaming PC</strong>&nbsp;has superior graphics and processing performance to suit the most demanding gamer.</p>\r\n', 'lenovo-legion-y520-gaming-pc', 899.99, 'lenovo-legion-y520-gaming-pc.jpg', '2018-05-10', 13),
-(15, 2, 'PC SPECIALIST Vortex Minerva XT-R Gaming PC', '<p>- NVIDIA GeForce GTX graphics for stunning gaming visuals<br />\r\n<br />\r\n- Made for eSports with a speedy 7th generation Intel&reg; Core&trade; i5 processor<br />\r\n<br />\r\n- GeForce technology lets you directly update drivers, record your gaming and more<br />\r\n<br />\r\nThe PC Specialist&nbsp;<strong>Vortex Minerva XT-R Gaming PC</strong>&nbsp;is part of our Gaming range, which offers the most powerful PCs available. Its high-performance graphics and processing are made to meet the needs of serious gamers.</p>\r\n', 'pc-specialist-vortex-minerva-xt-r-gaming-pc', 999.99, 'pc-specialist-vortex-minerva-xt-r-gaming-pc.jpg', '2018-07-09', 1),
-(16, 2, 'PC SPECIALIST Vortex Core II Gaming PC', '<p>Processor: Intel&reg; CoreTM i3-6100 Processor- Dual-core- 3.7 GHz- 3 MB cache</p>\r\n\r\n<p>Memory (RAM): 8 GB DDR4 HyperX, Storage: 1 TB HDD, 7200 rpm</p>\r\n\r\n<p>Graphics card: NVIDIA GeForce GTX 950 (2 GB GDDR5), Motherboard: ASUS H110M-R</p>\r\n\r\n<p>USB: USB 3.0 x 3- USB 2.0 x 5, Video interface: HDMI x 1- DisplayPort x 1- DVI x 2, Audio interface: 3.5 mm jack, Optical disc drive: DVD/RW, Expansion card slot PCIe: (x1) x 2</p>\r\n\r\n<p>Sound: 5.1 Surround Sound support PSU Corsair: VS350, 350W, Colour: Black- Green highlights, Box contents: PC Specialist Vortex Core- AC power cable</p>\r\n', 'pc-specialist-vortex-core-ii-gaming-pc', 649.99, 'pc-specialist-vortex-core-ii-gaming-pc.jpg', '2018-05-10', 2),
-(17, 3, 'AMAZON Fire 7 Tablet with Alexa (2017) - 8 GB, Black', '<p>The next generation of our best-selling Fire tablet ever - now thinner, lighter, and with longer battery life and an improved display. More durable than the latest iPad</p>\r\n\r\n<p>Beautiful 7&quot; IPS display with higher contrast and sharper text, a 1.3 GHz quad-core processor, and up to 8 hours of battery life. 8 or 16 GB of internal storage and a microSD slot for up to 256 GB of expandable storage.</p>\r\n', 'amazon-fire-7-tablet-alexa-2017-8-gb-black', 49.99, 'amazon-fire-7-tablet-alexa-2017-8-gb-black.jpg', '2018-05-12', 1),
-(18, 3, 'AMAZON Fire HD 8 Tablet with Alexa (2017) - 16 GB, Black', '<p>Take your personal assistant with you wherever you go with this Amazon Fire HD 8 tablet featuring Alexa voice-activated cloud service. The slim design of the tablet is easy to handle, and the ample 8-inch screen is ideal for work or play. This Amazon Fire HD 8 features super-sharp high-definition graphics for immersive streaming.</p>\r\n', 'amazon-fire-hd-8-tablet-alexa-2017-16-gb-black', 79.99, 'amazon-fire-hd-8-tablet-alexa-2017-16-gb-black.jpg', '2018-05-12', 2),
-(19, 3, 'AMAZON Fire HD 8 Tablet with Alexa (2017) - 32 GB, Black', '<p>The next generation of our best-reviewed Fire tablet, with up to 12 hours of battery life, a vibrant 8&quot; HD display, a 1.3 GHz quad-core processor, 1.5 GB of RAM, and Dolby Audio. More durable than the latest iPad.</p>\r\n\r\n<p>16 or 32 GB of internal storage and a microSD slot for up to 256 GB of expandable storage.</p>\r\n', 'amazon-fire-hd-8-tablet-alexa-2017-32-gb-black', 99.99, 'amazon-fire-hd-8-tablet-alexa-2017-32-gb-black.jpg', '2018-05-10', 1),
-(20, 3, 'APPLE 9.7" iPad - 32 GB, Space Grey', '<p>9.7-inch Retina display, wide color and true tone</p>\r\n\r\n<p>A9 third-generation chip with 64-bit architecture</p>\r\n\r\n<p>M9 motion coprocessor</p>\r\n\r\n<p>1.2MP FaceTime HD camera</p>\r\n\r\n<p>8MP iSight camera</p>\r\n\r\n<p>Touch ID</p>\r\n\r\n<p>Apple Pay</p>\r\n', 'apple-9-7-ipad-32-gb-space-grey', 339, 'apple-9-7-ipad-32-gb-space-grey.jpg', '2018-05-12', 1),
-(27, 1, 'Dell XPS 15 9560', '<p>The world&rsquo;s smallest 15.6-inch performance laptop packs powerhouse performance and a stunning InfinityEdge display &mdash; all in our most powerful XPS laptop. Featuring the latest Intel&reg; processors.</p>\r\n\r\n<h2>Operating system</h2>\r\n\r\n<p><strong>Available with Windows 10 Home&nbsp;</strong>- Get the best combination of Windows features you know and new improvements you&#39;ll love.</p>\r\n\r\n<h2>Innovation that inspires.</h2>\r\n\r\n<p>When you&rsquo;re at the forefront of ingenuity, you get noticed. That&rsquo;s why it&rsquo;s no surprise the XPS 15 was honored. The winning streak continues.</p>\r\n\r\n<h2>Meet the smallest 15.6-inch laptop on the planet.</h2>\r\n\r\n<p><strong>The world&rsquo;s only 15.6-inch InfinityEdge display*:</strong>&nbsp;The virtually borderless display maximizes screen space by accommodating a 15.6-inch display inside a laptop closer to the size of a 14-inch, thanks to a bezel measuring just 5.7mm.<br />\r\n&nbsp;<br />\r\n<strong>Operating System: Windows 10 Pro.</strong><br />\r\n<br />\r\n<strong>One-of-a-kind design:</strong>&nbsp;Measuring in at a slim 11-17mm and starting at just 4 pounds (1.8 kg) with a solid state drive, the XPS 15 is one of the world&rsquo;s lightest 15-inch performance-class laptop.</p>\r\n\r\n<h2>A stunning view, wherever you go.</h2>\r\n\r\n<p><strong>Dazzling detail:</strong>&nbsp;With the UltraSharp 4K Ultra HD display (3840 x 2160), you can see each detail of every pixel without needing to zoom in. And with 6 million more pixels than Full HD and 3 million more than the MacBook Pro, you can edit images with pinpoint accuracy without worrying about blurriness or jagged lines.<br />\r\n<br />\r\n<strong>Industry-leading color:</strong>&nbsp;The XPS 15 is the only laptop with 100% Adobe RGB color, covering a wider color gamut and producing shades of color outside conventional panels so you can see more of what you see in real life. And with over 1 billion colors, images appear smoother and color gradients are amazingly lifelike with more depth and dimension. Included is Dell PremierColor software, which automatically remaps content not already in Adobe RGB format for onscreen colors that appear amazingly accurate and true to life.<br />\r\n<br />\r\n<strong>Easy collaboration:</strong>&nbsp;See your screen from nearly every angle with an IGZO IPS panel, providing a wide viewing angle of up to 170&deg;.&nbsp;<br />\r\n<br />\r\n<strong>Brighten your day:</strong>&nbsp;With 350 nit brightness, it&rsquo;s brighter than a typical laptop.<br />\r\n<br />\r\n<strong>Touch-friendly:</strong>&nbsp;Tap, swipe and pinch your way around the screen. The optional touch display lets you interact naturally with your technology.</p>\r\n', 'dell-xps-15-9560', 1599, 'dell-xps-15-9560.jpg', '2018-07-09', 9),
-(28, 4, 'Samsung Note 8', '<p>See the bigger picture and communicate in a whole new way. With the Galaxy Note8 in your hand, bigger things are just waiting to happen.&nbsp;</p>\r\n\r\n<h3>The Infinity Display that&#39;s larger than life.&nbsp;</h3>\r\n\r\n<p>More screen means more space to do great things. Go big with the Galaxy Note8&#39;s 6.3&quot; screen. It&#39;s the largest ever screen on a Note device and it still fits easily in your hand.</p>\r\n\r\n<p>*Infinity Display: a near bezel-less, full-frontal glass, edge-to-edge screen.</p>\r\n\r\n<p>*Screen measured diagonally as a full rectangle without accounting for the rounded corners.</p>\r\n\r\n<p>Use the S Pen to express yourself in ways that make a difference. Draw your own emojis to show how you feel or write a message on a photo and send it as a handwritten note. Do things that matter with the S Pen.</p>\r\n\r\n<p>*Image simulated for illustration purpose only.</p>\r\n', 'samsung-note-8', 829, 'samsung-note-8.jpg', '0000-00-00', 0),
-(29, 4, 'Samsung Galaxy S9+ [128 GB]', '<h2>The revolutionary camera that adapts like the human eye.&nbsp;</h2>\r\n\r\n<h3>Capture stunning pictures in bright daylight and super low light.</h3>\r\n\r\n<p>Our category-defining Dual Aperture lens adapts like the human eye. It&#39;s able to automatically switch between various lighting conditions with ease&mdash;making your photos look great whether it&#39;s bright or dark, day or night.</p>\r\n\r\n<p>*Dual Aperture supports F1.5 and F2.4 modes. Installed on the rear camera (Galaxy S9)/rear wide camera (Galaxy S9+).</p>\r\n\r\n<p><img alt="" src="https://www.samsung.com/global/galaxy/galaxy-s9/images/galaxy-s9_slow_gif_visual_l.jpg" style="height:464px; width:942px" />Add music. Make GIFs. Get likes</p>\r\n\r\n<p>Super Slow-mo lets you see the things you could have missed in the blink of an eye. Set the video to music or turn it into a looping GIF, and share it with a tap. Then sit back and watch the reactions roll in.</p>\r\n', 'samsung-galaxy-s9-128-gb', 889.99, 'samsung-galaxy-s9-128-gb.jpg', '2018-07-09', 3);
+(1, 1, 'DELL Inspiron 15 7000 15.6', '<p>Ordinateur portable 15 pouces id&eacute;al pour les joueurs. Mettant en vedette les derniers processeurs Intel&reg; pour des performances de jeu sup&eacute;rieure et NVIDIA&reg; GeForce&reg; graphiques comme la vie et un syst&egrave;me de refroidissement thermique avanc&eacute;.</p>\r\n', 'dell-inspiron-15-7000-15-6', 8999, 'dell-inspiron-15-7000-15-6.jpg', '2018-07-09', 2),
+(2, 1, 'MICROSOFT Surface Pro 4 & Typecover - 128 GB', '<p>Surface Pro 4 vous permet de faire tout ce que vous devez faire, tout en &eacute;tant plus l&eacute;ger que jamais</p>\r\n\r\n<p>L&#39;&eacute;cran 12,3 PixelSense offre un contraste extr&ecirc;mement &eacute;lev&eacute; et un faible &eacute;blouissement, vous permettant de travailler toute la journ&eacute;e sans vous fatiguer les yeux.</p>\r\n\r\n<p>le clavier n&#39;est pas inclus et doit &ecirc;tre achet&eacute; s&eacute;par&eacute;ment</p>\r\n\r\n<p>Dispose d&#39;un processeur Intel Core i5 de 6e g&eacute;n&eacute;ration (Skylake), sans fil: r&eacute;seau sans fil Wi-Fi 802.11ac; Technologie sans fil Bluetooth 4.0 compatible IEEE 802.11a / b / g / n</p>\r\n\r\n<p>Navires en emballage de consommation.</p>\r\n', 'microsoft-surface-pro-4-typecover-128-gb', 7999, 'microsoft-surface-pro-4-typecover-128-gb.jpg', '2019-05-15', 1),
+(3, 1, 'DELL Inspiron 15 5000 15.6', '<p>Le bloc-notes de milieu de gamme de 15,6 pouces de Dell est un bloc fade et trapu. Il y a longtemps que la gamme Inspiron ne poss&egrave;de aucune muse esth&eacute;tique, et Inspiron 15 5000 suit cette tendance. C&#39;est une plaque en plastique argent&eacute;e portant le logo de Dell dans un reflet lustr&eacute;.</p>\r\n\r\n<p>En soulevant le couvercle, vous obtenez un &eacute;cran 1080p de 15,6 pouces entour&eacute; d&#39;une lunette presque &eacute;paisse et d&#39;un plateau en plastique avec un aspect en faux m&eacute;tal bross&eacute;. Il y a un lecteur d&rsquo;empreintes digitales sur le bouton d&rsquo;alimentation, et le clavier est une collection noire de touches de style &icirc;lot.</p>\r\n', 'dell-inspiron-15-5000-15-6', 5999, 'dell-inspiron-15-5000-15-6.jpg', '2019-06-04', 3),
+(4, 1, 'LENOVO Ideapad 320s-14IKB 14\" Laptop - Grey', '<p>- Con&ccedil;u pour la portabilit&eacute; avec un ch&acirc;ssis mince et l&eacute;ger</p>\r\n\r\n<p>- Un traitement puissant vous aide &agrave; cr&eacute;er et &agrave; produire en d&eacute;placement</p>\r\n\r\n<p>- L&#39;&eacute;cran Full HD garantit des images nettes pour les films, les pages Web, les photos et plus</p>\r\n\r\n<p>- Profitez d&#39;un son chaud et brillant offert par deux haut-parleurs Harman et Dolby Audio</p>\r\n\r\n<p>- Transfert rapide de donn&eacute;es et connexion vid&eacute;o de haute qualit&eacute; avec ports USB-C et HDMI</p>\r\n\r\n<p>L&#39;ordinateur portable Lenovo IdeaPad 320s-14IKB 14 &quot;fait partie de notre gamme Achieve, qui dispose des derni&egrave;res technologies pour vous aider &agrave; d&eacute;velopper vos id&eacute;es et &agrave; travailler de votre mieux. Il est id&eacute;al pour l&#39;&eacute;dition de documents complexes, votre utilisation professionnelle, l&#39;&eacute;dition de photos, etc. faire tout au long de la journ&eacute;e.</p>\r\n', 'lenovo-ideapad-320s-14ikb-14-laptop-grey', 3999, 'lenovo-ideapad-320s-14ikb-14-laptop-grey.jpg', '2018-05-10', 3),
+(5, 3, 'APPLE 9.7\" iPad - 32 GB, Gold', '<p>&Eacute;cran Retina de 9,7 pouces, r&eacute;solution 2048 x 1536, &eacute;cran large couleur et ton v&eacute;ritable</p>\r\n\r\n<p>Apple iOS 9, puce A9X &agrave; architecture 64 bits, coprocesseur M9</p>\r\n\r\n<p>Cam&eacute;ra iSight 12 m&eacute;gapixels, flash True Tone, panoramique (jusqu&#39;&agrave; 63 m&eacute;gapixels), audio &agrave; quatre haut-parleurs</p>\r\n\r\n<p>Jusqu&#39;&agrave; 10 heures d&#39;autonomie</p>\r\n\r\n<p>iPad Pro prend en charge le clavier intelligent Apple et le crayon Apple</p>\r\n', 'apple-9-7-ipad-32-gb-gold', 3399, 'apple-9-7-ipad-32-gb-gold.jpg', '2018-07-09', 3),
+(6, 1, 'DELL Inspiron 15 5000 15', '<p>Ordinateur portable 15 pouces offrant une exp&eacute;rience visuelle exceptionnelle, une finition qui fait tourner les t&ecirc;tes et toute une gamme d&#39;options con&ccedil;ues pour am&eacute;liorer votre divertissement, o&ugrave; que vous soyez.</p>\r\n', 'dell-inspiron-15-5000-15', 4499.99, 'dell-inspiron-15-5000-15.jpg', '0000-00-00', 0),
+(7, 3, 'APPLE 10.5\" iPad Pro - 64 GB, Space Grey (2017)', '<p>Enregistrement vid&eacute;o 4K &agrave; 30 images par seconde</p>\r\n\r\n<p>Appareil photo 12 m&eacute;gapixels</p>\r\n\r\n<p>Rev&ecirc;tement r&eacute;sistant aux empreintes digitales</p>\r\n\r\n<p>Rev&ecirc;tement anti-r&eacute;fl&eacute;chissant</p>\r\n\r\n<p>Appels vid&eacute;o Face Time</p>\r\n', 'apple-10-5-ipad-pro-64-gb-space-grey-2017', 6199, 'apple-10-5-ipad-pro-64-gb-space-grey-2017.jpg', '0000-00-00', 0),
+(8, 1, 'ASUS Transformer Mini T102HA 10.1\" 2 in 1 - Silver', '<p>Appareil Windows 10 polyvalent avec clavier et stylet inclus, fonctionnalit&eacute; 2 en 1: utilisez-le comme ordinateur portable et tablette. Mettez r&eacute;guli&egrave;rement &agrave; jour Windows pour vous assurer que vos applications disposent des derniers param&egrave;tres de s&eacute;curit&eacute;.</p>\r\n\r\n<p>Dur&eacute;e de vie de la batterie toute la journ&eacute;e, jusqu&#39;&agrave; 11 heures de lecture vid&eacute;o; 128 Go de stockage &agrave; l&#39;&eacute;tat solide. Batterie en polym&egrave;re.Avec 11 heures maximum entre les charges, vous pouvez &ecirc;tre s&ucirc;r que le Transformer Mini T102HA sera &agrave; port&eacute;e de main chaque fois que vous en aurez besoin. Vous pouvez charger le T102HA via son port micro USB, de sorte que vous pouvez utiliser un chargeur mobile ou n&rsquo;importe quelle banque d&rsquo;alimentation munie d&rsquo;un connecteur micro USB.</p>\r\n', 'asus-transformer-mini-t102ha-10-1-2-1-silver', 5499.99, 'asus-transformer-mini-t102ha-10-1-2-1-silver.jpg', '0000-00-00', 0),
+(9, 2, 'PC SPECIALIST Vortex Core Lite Gaming PC', '<p>- Performances exceptionnelles pour jouer &agrave; l&#39;eSport et plus</p>\r\n\r\n<p>- Les cartes graphiques NVIDIA GeForce GTX offrent des images fluides</p>\r\n\r\n<p>- GeForce Experience fournit des mises &agrave; jour directement sur votre PC</p>\r\n\r\n<p>Le sp&eacute;cialiste PC Vortex Core Lite fait partie de notre gamme de jeux et vous offre les PC les plus impressionnants disponibles &agrave; ce jour. Ses graphismes spectaculaires et ses performances de traitement rapides conviennent aux joueurs les plus exigeants.</p>\r\n', 'pc-specialist-vortex-core-lite-gaming-pc', 5999.99, 'pc-specialist-vortex-core-lite-gaming-pc.jpg', '0000-00-00', 0),
+(10, 2, 'DELL Inspiron 5675 Gaming PC - Recon Blue', '<p>Le tout nouveau bureau de jeu dot&eacute; de puissants processeurs AMD Ryzen &trade;, de graphiques pr&ecirc;ts pour la r&eacute;alit&eacute; virtuelle, d&#39;un &eacute;clairage LED et d&#39;un design m&eacute;ticuleux pour un refroidissement optimal.</p>\r\n', 'dell-inspiron-5675-gaming-pc-recon-blue', 5999.99, 'dell-inspiron-5675-gaming-pc-recon-blue.jpg', '2019-05-20', 2),
+(11, 2, 'HP Barebones OMEN X 900-099nn Gaming PC', '<p>Ce qui est &agrave; l&#39;int&eacute;rieur compte.</p>\r\n\r\n<p>Sans refroidissement appropri&eacute;, les performances sup&eacute;rieures ne atteignent jamais leur plein potentiel.</p>\r\n\r\n<p>Neuf zones d&#39;&eacute;clairage accentuent les lignes agressives et le fini noir lisse de ce bo&icirc;tier en acier galvanis&eacute; unique.</p>\r\n', 'hp-barebones-omen-x-900-099nn-gaming-pc', 4899.98, 'hp-barebones-omen-x-900-099nn-gaming-pc.jpg', '2019-05-16', 2),
+(12, 2, 'ACER Aspire GX-781 Gaming PC', '<p>- La carte graphique GTX 1050 vous permet de jouer &agrave; des jeux &eacute;normes dans de grandes r&eacute;solutions</p>\r\n\r\n<p>- Le processeur Core &trade; i5 de derni&egrave;re g&eacute;n&eacute;ration prend en charge les logiciels multim&eacute;dia exigeants</p>\r\n\r\n<p>- Le stockage Superfast SSD vous permet de charger des programmes en un rien de temps</p>\r\n\r\n<p>Le PC de jeu Acer Aspire GX-781 fait partie de notre gamme de jeux, qui propose les ordinateurs les plus puissants disponibles &agrave; ce jour. Il offre des performances graphiques et de traitement exceptionnelles aux joueurs les plus exigeants.</p>\r\n', 'acer-aspire-gx-781-gaming-pc', 7490.99, 'acer-aspire-gx-781-gaming-pc.jpg', '2018-05-12', 3),
+(13, 2, 'HP Pavilion Power 580-015na Gaming PC', '<p>Comprend le dernier processeur Intel i5 quadric&oelig;ur et des graphiques discrets. Avec ce pouvoir, vous &ecirc;tes pr&ecirc;t &agrave; entreprendre toute activit&eacute;, de la cr&eacute;ation d&rsquo;art num&eacute;rique &agrave; la conqu&ecirc;te de nouveaux mondes en r&eacute;alit&eacute; virtuelle.</p>\r\n\r\n<p>Choisissez la performance et le stockage dont vous avez besoin. D&eacute;marrez en quelques secondes avec un disque SSD de 128 Go.</p>\r\n\r\n<p>Laissez tomber la bo&icirc;te gris terne, ce bureau est infus&eacute; avec style. Une nouvelle lunette angulaire et un design audacieux de vert et de noir conf&egrave;rent &agrave; votre espace de travail la bonne dose d&#39;attitude.</p>\r\n\r\n<p>Performances jusqu&#39;&agrave; trois fois plus rapides - Les cartes graphiques GeForce GTX 10 sont aliment&eacute;es par Pascal pour offrir deux fois les performances des cartes graphiques de la g&eacute;n&eacute;ration pr&eacute;c&eacute;dente.</p>\r\n', 'hp-pavilion-power-580-015na-gaming-pc', 7999.99, 'hp-pavilion-power-580-015na-gaming-pc.jpg', '2019-05-16', 4),
+(14, 2, 'LENOVO Legion Y520 Gaming PC', '<p>- Multit&acirc;che en toute simplicit&eacute; gr&acirc;ce au processeur Intel&reg; i5</p>\r\n\r\n<p>- Pr&eacute;parez-vous au combat avec la carte graphique NVIDIA GeForce GTX</p>\r\n\r\n<p>- VR pr&ecirc;t pour la prochaine g&eacute;n&eacute;ration de jeux et de divertissements immersifs</p>\r\n\r\n<p>- La mise &agrave; niveau sans outil vous permet de personnaliser votre syst&egrave;me en fonction de vos propres besoins.</p>\r\n\r\n<p>Le PC de jeu Lenovo Legion Y520, qui fait partie de notre gamme de jeux, comprend les ordinateurs les plus puissants disponibles &agrave; ce jour, offre des performances graphiques et de traitement sup&eacute;rieures pour r&eacute;pondre aux attentes des joueurs les plus exigeants.</p>\r\n', 'lenovo-legion-y520-gaming-pc', 8999.99, 'lenovo-legion-y520-gaming-pc.jpg', '2018-05-10', 13),
+(15, 2, 'PC SPECIALIST Vortex Minerva XT-R Gaming PC', '<p>- Graphiques NVIDIA GeForce GTX pour des visuels de jeu &eacute;poustouflants</p>\r\n\r\n<p>- Con&ccedil;u pour l&#39;eSport avec un processeur Intel&reg; Core &trade; i5 rapide de 7&egrave;me g&eacute;n&eacute;ration</p>\r\n\r\n<p>- La technologie GeForce vous permet de mettre &agrave; jour directement les pilotes, d&#39;enregistrer vos jeux et plus encore</p>\r\n\r\n<p>Le PC de jeu Vortex Minerva XT-R, sp&eacute;cialiste PC, fait partie de notre gamme de jeux, qui propose les ordinateurs les plus puissants disponibles. Ses graphismes et son traitement hautes performances sont con&ccedil;us pour r&eacute;pondre aux besoins des joueurs s&eacute;rieux.</p>\r\n', 'pc-specialist-vortex-minerva-xt-r-gaming-pc', 9999.99, 'pc-specialist-vortex-minerva-xt-r-gaming-pc.jpg', '2018-07-09', 1),
+(16, 2, 'PC SPECIALIST Vortex Core II Gaming PC', '<p>Processeur: Processeur Intel&reg; CoreTM i3-6100 - Cache double c&oelig;ur - 3,7 GHz - 3 Mo</p>\r\n\r\n<p>M&eacute;moire (RAM): DDR4 HyperX 8 Go, Stockage: Disque dur 1 To, 7 200 tr / min</p>\r\n\r\n<p>Carte graphique: NVIDIA GeForce GTX 950 (2 Go GDDR5), Carte m&egrave;re: ASUS H110M-R</p>\r\n\r\n<p>USB: USB 3.0 x 3- USB 2.0 x 5, Interface vid&eacute;o: HDMI x 1- DisplayPort x 1- DVI x 2, Interface audio: prise jack 3,5 mm, Lecteur de disque optique: DVD / RW, Emplacement pour carte d&#39;extension PCIe: (x1) x 2</p>\r\n\r\n<p>Son: 5.1 Prise en charge du son surround PSU Corsair: VS350, 350W, Couleur: noir / vert en surbrillance, contenu de la bo&icirc;te: PC Specialist Vortex Core - C&acirc;ble d&#39;alimentation CA</p>\r\n', 'pc-specialist-vortex-core-ii-gaming-pc', 6499.99, 'pc-specialist-vortex-core-ii-gaming-pc.jpg', '2019-05-16', 4),
+(17, 3, 'AMAZON Fire 7 Tablet with Alexa (2017) - 8 GB, Black', '<p>La nouvelle g&eacute;n&eacute;ration de notre tablette Fire the plus vendue &agrave; ce jour - d&eacute;sormais plus fine, plus l&eacute;g&egrave;re, avec une dur&eacute;e de vie de la batterie plus longue et un &eacute;cran am&eacute;lior&eacute;. Plus durable que le dernier iPad</p>\r\n\r\n<p>Superbe &eacute;cran IPS 7 &quot;avec processeur &eacute;lev&eacute; quad-core 1,3 GHz et autonomie pouvant atteindre 8 heures. Stockage interne de 8 ou 16 Go pour microSD pour une capacit&eacute; de stockage extensible jusqu&#39;&agrave; jusqu&#39;&agrave; 256 Go .</p>\r\n', 'amazon-fire-7-tablet-alexa-2017-8-gb-black', 4999.99, 'amazon-fire-7-tablet-alexa-2017-8-gb-black.jpg', '2019-05-16', 1),
+(18, 3, 'AMAZON Fire HD 8 Tablet with Alexa (2017) - 16 GB, Black', '<p>Emportez votre assistant personnel with all you with all this tablet. Amazon Fire HD 8 a cloud service Alexa Alexa par la voix. La conception mince de la tablette est facile &agrave; manipuler, et le grand &eacute;cran de 8 pouces est id&eacute;al pour le travail ou les loisirs. Cet Amazon Fire HD 8 dispose de graphiques haute d&eacute;finition ultra-r&eacute;seaux pour la diffusion en continu et en immersion.</p>\r\n', 'amazon-fire-hd-8-tablet-alexa-2017-16-gb-black', 799.99, 'amazon-fire-hd-8-tablet-alexa-2017-16-gb-black.jpg', '2018-05-12', 2),
+(19, 3, 'AMAZON Fire HD 8 Tablet with Alexa (2017) - 32 GB, Black', '<p>La nouvelle g&eacute;n&eacute;ration de notre tablette Feu, la meilleure note, avec une autonomie de batterie jusqu&#39;&agrave; 12 heures, un &eacute;cran HD 8 &quot;dynamique, un processeur quad-core 1,3 GHz, 1,5 Go de RAM et un son Dolby Plus durable que le dernier iPad.</p>\r\n\r\n<p>16 ou 32 Go de stockage interne et un slot microSD pour jusqu&rsquo;&agrave; 256 Go de stockage extensible.</p>\r\n\r\n<p>La nouvelle g&eacute;n&eacute;ration de notre tablette Feu, la meilleure note, avec une autonomie de batterie jusqu&#39;&agrave; 12 heures, un &eacute;cran HD 8 &quot;dynamique, un processeur quad-core 1,3 GHz, 1,5 Go de RAM et un son Dolby Plus durable que le dernier iPad.</p>\r\n\r\n<p>16 ou 32 Go de stockage interne et un slot microSD pour jusqu&rsquo;&agrave; 256 Go de stockage extensible.</p>\r\n', 'amazon-fire-hd-8-tablet-alexa-2017-32-gb-black', 999.99, 'amazon-fire-hd-8-tablet-alexa-2017-32-gb-black.jpg', '2019-05-22', 2),
+(20, 3, 'APPLE 9.7\" iPad - 32 GB, Space Grey', '<p>&Eacute;cran Retina de 9,7 pouces, couleurs larges et ton v&eacute;ritable</p>\r\n\r\n<p>Puce A9 de troisi&egrave;me g&eacute;n&eacute;ration avec architecture 64 bits</p>\r\n\r\n<p>Coprocesseur de mouvement M9</p>\r\n\r\n<p>Cam&eacute;ra FaceTime HD 1,2 MP</p>\r\n\r\n<p>Cam&eacute;ra iSight 8MP</p>\r\n\r\n<p>Touch ID</p>\r\n\r\n<p>Apple Pay</p>\r\n', 'apple-9-7-ipad-32-gb-space-grey', 3399, 'apple-9-7-ipad-32-gb-space-grey.jpg', '2018-05-12', 1),
+(27, 1, 'Dell XPS 15 9560', '<p>Le plus petit ordinateur portable de performance au monde de 15,6 pouces offre des performances exceptionnelles et un superbe &eacute;cran InfinityEdge, le tout dans notre ordinateur portable XPS le plus puissant. Dot&eacute; des derniers processeurs Intel&reg;.</p>\r\n\r\n<p>Syst&egrave;me op&eacute;rateur<br />\r\nDisponible avec Windows 10 Home - Obtenez la meilleure combinaison de fonctionnalit&eacute;s Windows que vous connaissez et de nouvelles am&eacute;liorations que vous allez adorer.</p>\r\n\r\n<p>L&#39;innovation qui inspire.<br />\r\nLorsque vous &ecirc;tes &agrave; la pointe de l&#39;ing&eacute;niosit&eacute;, vous vous faites remarquer. C&rsquo;est pourquoi il n&rsquo;est pas surprenant que le XPS 15 ait &eacute;t&eacute; honor&eacute;. La s&eacute;rie de victoires continue.</p>\r\n\r\n<p>Faites connaissance avec le plus petit ordinateur portable de 15,6 pouces de la plan&egrave;te.<br />\r\nLe seul &eacute;cran InfinityEdge de 15,6 pouces au monde *: l&rsquo;&eacute;cran pratiquement sans bord optimise l&rsquo;espace de l&rsquo;&eacute;cran en permettant l&rsquo;affichage d&rsquo;un &eacute;cran de 15,6 pouces dans un ordinateur portable plus proche de la taille d&rsquo;un 14 pouces, gr&acirc;ce &agrave; une lunette ne mesurant que 5,7 mm.</p>\r\n\r\n<p>Syst&egrave;me d&#39;exploitation: Windows 10 Pro.</p>\r\n\r\n<p>Conception unique: mesurant un mince 11-17mm et ne pesant que 1,8 kg avec un lecteur &agrave; semi-conducteurs, le XPS 15 est l&rsquo;un des plus l&eacute;gers ordinateurs portables de la classe performance au monde.</p>\r\n\r\n<p>Une vue imprenable, o&ugrave; que vous soyez.<br />\r\nD&eacute;tail &eacute;blouissant: avec l&#39;&eacute;cran UltraSharp 4K Ultra HD (3840 x 2160), vous pouvez voir chaque d&eacute;tail de chaque pixel sans avoir &agrave; zoomer. Et avec 6 millions de pixels de plus que la Full HD et 3 millions de plus que le MacBook Pro, vous pouvez &eacute;ditez les images avec une pr&eacute;cision extr&ecirc;me sans vous soucier du flou ou des lignes d&eacute;chiquet&eacute;es.</p>\r\n\r\n<p>Couleur leader sur le march&eacute;: le XPS 15 est le seul ordinateur portable 100% couleur Adobe RVB, couvrant une gamme de couleurs plus &eacute;tendue et produisant des nuances de couleur en dehors des panneaux conventionnels pour vous permettre de voir davantage ce que vous voyez dans la vie r&eacute;elle. Et avec plus d&#39;un milliard de couleurs, les images sont plus lisses et les d&eacute;grad&eacute;s de couleurs sont incroyablement r&eacute;alistes, avec plus de profondeur et de dimension. Le logiciel Dell PremierColor est inclus. Il remappe automatiquement le contenu qui n&#39;&eacute;tait pas encore au format Adobe RGB pour des couleurs &agrave; l&#39;&eacute;cran qui semblent incroyablement pr&eacute;cises et fid&egrave;les &agrave; la r&eacute;alit&eacute;.</p>\r\n\r\n<p>Collaboration facile: visionnez votre &eacute;cran sous presque tous les angles avec un panneau IGZO IPS offrant un large angle de vue pouvant atteindre 170 &deg;.</p>\r\n\r\n<p>Illuminez votre journ&eacute;e: avec une luminosit&eacute; de 350 nichets, il est plus lumineux qu&rsquo;un ordinateur portable classique.</p>\r\n\r\n<p>Touch-friendly: Tapez, glissez et glissez dans l&#39;&eacute;cran. L&#39;&eacute;cran tactile en option vous permet d&#39;interagir naturellement avec votre technologie.</p>\r\n', 'dell-xps-15-9560', 15999, 'dell-xps-15-9560.jpg', '2018-07-09', 9),
+(28, 4, 'Samsung Note 8', '<p>Voyez la vue d&#39;ensemble et communiquez d&#39;une toute nouvelle mani&egrave;re. Avec la Galaxy Note8 dans votre main, de plus grandes choses n&rsquo;attendent que de se produire.</p>\r\n\r\n<p>L&#39;&eacute;cran Infinity plus grand que nature.<br />\r\nPlus d&#39;&eacute;cran signifie plus d&#39;espace pour faire de grandes choses. Allez grand avec l&#39;&eacute;cran de 6,3 pouces du Galaxy Note8. Il s&#39;agit du plus grand &eacute;cran jamais con&ccedil;u sur un appareil Note et il tient toujours tr&egrave;s bien dans votre main.</p>\r\n\r\n<p>* Infinity Display: un &eacute;cran en verre de bout en bout, presque sans lunette.</p>\r\n\r\n<p>* &Eacute;cran mesur&eacute; en diagonale comme un rectangle complet sans tenir compte des coins arrondis.</p>\r\n\r\n<p>Utilisez le stylo S pour vous exprimer de mani&egrave;re &agrave; faire la diff&eacute;rence. Dessine tes propres &eacute;mojis pour montrer ce que tu ressens ou &eacute;cris un message sur une photo et envoie-la sous forme de note manuscrite. Faites ce qui compte avec le stylet S.</p>\r\n\r\n<p>* Image simul&eacute;e &agrave; des fins d&#39;illustration uniquement.</p>\r\n', 'samsung-note-8', 8299, 'samsung-note-8.jpg', '0000-00-00', 0),
+(29, 4, 'Samsung Galaxy S9+ [128 GB]', '<p><strong>La cam&eacute;ra r&eacute;volutionnaire qui s&rsquo;adapte comme l&rsquo;&oelig;il humain.</strong></p>\r\n\r\n<p><br />\r\nCapturez des images &eacute;poustouflantes &agrave; la lumi&egrave;re du jour et sous une lumi&egrave;re extr&ecirc;mement faible.<br />\r\nNotre objectif &agrave; double ouverture qui d&eacute;finit la cat&eacute;gorie s&rsquo;adapte comme l&rsquo;&oelig;il humain. Il est en mesure de basculer facilement et facilement entre diverses conditions d&#39;&eacute;clairage. Ainsi, vos photos auront une belle apparence, qu&#39;il soit clair ou sombre, de jour comme de nuit.</p>\r\n\r\n<p>* La double ouverture prend en charge les modes F1.5 et F2.4. Install&eacute; sur la cam&eacute;ra arri&egrave;re (Galaxy S9) / cam&eacute;ra arri&egrave;re large (Galaxy S9 +).</p>\r\n\r\n<p><img alt=\"\" src=\"https://www.samsung.com/global/galaxy/galaxy-s9/images/galaxy-s9_slow_gif_visual_l.jpg\" style=\"height:464px; width:942px\" /></p>\r\n\r\n<p>Ajouter de la musique. Faire des GIF. Obtenir des go&ucirc;ts</p>\r\n\r\n<p>Super Slow-mo vous permet de voir les choses que vous auriez pu manquer en un clin d&#39;&oelig;il. D&eacute;finissez la vid&eacute;o en musique ou transformez-la en un fichier GIF en boucle et partagez-la avec un robinet. Puis asseyez-vous et regardez les r&eacute;actions se d&eacute;rouler.</p>\r\n', 'samsung-galaxy-s9-128-gb', 8899.99, 'samsung-galaxy-s9-128-gb.jpg', '2019-05-15', 3);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sales`
+-- Structure de la table `sales`
 --
 
+DROP TABLE IF EXISTS `sales`;
 CREATE TABLE IF NOT EXISTS `sales` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `pay_id` varchar(50) NOT NULL,
-  `sales_date` date NOT NULL
+  `sales_date` date NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `sales`
+-- Déchargement des données de la table `sales`
 --
 
 INSERT INTO `sales` (`id`, `user_id`, `pay_id`, `sales_date`) VALUES
-(9, 9, 'PAY-1RT494832H294925RLLZ7TZA', '2018-05-10'),
-(10, 9, 'PAY-21700797GV667562HLLZ7ZVY', '2018-05-10');
+(9, 9, 'PAY-1RT494832H294925RLLZ7TZA', '2019-06-10'),
+(10, 9, 'PAY-21700797GV667562HLLZ7ZVY', '2019-06-10');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Structure de la table `users`
 --
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(200) NOT NULL,
   `password` varchar(60) NOT NULL,
   `type` int(1) NOT NULL,
   `firstname` varchar(50) NOT NULL,
   `lastname` varchar(50) NOT NULL,
-  `address` text NOT NULL,
-  `contact_info` varchar(100) NOT NULL,
-  `photo` varchar(200) NOT NULL,
-  `status` int(1) NOT NULL,
+  `address` text,
+  `contact_info` varchar(100) DEFAULT NULL,
+  `photo` varchar(200) DEFAULT NULL,
+  `status` int(1) DEFAULT NULL,
   `activate_code` varchar(15) NOT NULL,
-  `reset_code` varchar(15) NOT NULL,
-  `created_on` date NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+  `reset_code` varchar(15) DEFAULT NULL,
+  `created_on` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `users`
+-- Déchargement des données de la table `users`
 --
 
 INSERT INTO `users` (`id`, `email`, `password`, `type`, `firstname`, `lastname`, `address`, `contact_info`, `photo`, `status`, `activate_code`, `reset_code`, `created_on`) VALUES
-(1, 'admin@admin.com', '$2y$10$0SHFfoWzz8WZpdu9Qw//E.tWamILbiNCX7bqhy3od0gvK5.kSJ8N2', 1, 'Code', 'Projects', '', '', 'thanos1.jpg', 1, '', '', '2018-05-01'),
+(1, 'admin@admin.com', '$2y$10$0SHFfoWzz8WZpdu9Qw//E.tWamILbiNCX7bqhy3od0gvK5.kSJ8N2', 1, 'admin', 'name', '', '', 'thanos1.jpg', 1, '', '', '2018-05-01'),
 (9, 'harry@den.com', '$2y$10$Oongyx.Rv0Y/vbHGOxywl.qf18bXFiZOcEaI4ZpRRLzFNGKAhObSC', 0, 'Harry', 'Den', 'Silay City, Negros Occidental', '09092735719', 'male2.png', 1, 'k8FBpynQfqsv', 'wzPGkX5IODlTYHg', '2018-05-09'),
-(12, 'christine@gmail.com', '$2y$10$ozW4c8r313YiBsf7HD7m6egZwpvoE983IHfZsPRxrO1hWXfPRpxHO', 0, 'Christine', 'becker', 'demo', '7542214500', 'female3.jpg', 1, '', '', '2018-07-09');
+(12, 'christine@gmail.com', '$2y$10$ozW4c8r313YiBsf7HD7m6egZwpvoE983IHfZsPRxrO1hWXfPRpxHO', 0, 'Christine', 'becker', 'demo', '7542214500', 'female3.jpg', 1, '', '', '2018-07-09'),
+(13, 'aaa@gmail.com', '$2y$10$jez7j3sWKkPzozRgdgtL3eNFnU1fHnhmacdNfd5EnIzdKbo9hBdYu', 0, 'taaaaaaa', 'aaaaaaaaaa', NULL, NULL, NULL, NULL, 'anNkdAUMhj5m', NULL, '2019-06-04'),
+(14, 'test@gmail.com', '$2y$10$A6blXKxKLaDgnQkDfAEble2eJjYkfC9HUXP7qqq7XttrifBqmo0Pu', 0, 'test', 'test', NULL, NULL, NULL, NULL, 'UoqaOAExCnsF', NULL, '2019-06-04');
+COMMIT;
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `cart`
---
-ALTER TABLE `cart`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `category`
---
-ALTER TABLE `category`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `details`
---
-ALTER TABLE `details`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `products`
---
-ALTER TABLE `products`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `sales`
---
-ALTER TABLE `sales`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
- ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `cart`
---
-ALTER TABLE `cart`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
---
--- AUTO_INCREMENT for table `category`
---
-ALTER TABLE `category`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
---
--- AUTO_INCREMENT for table `details`
---
-ALTER TABLE `details`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
---
--- AUTO_INCREMENT for table `products`
---
-ALTER TABLE `products`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=30;
---
--- AUTO_INCREMENT for table `sales`
---
-ALTER TABLE `sales`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

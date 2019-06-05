@@ -18,6 +18,8 @@
       <li><a href="sales.php"><i class="fa fa-money"></i> <span>Ventes</span></a></li>
       <li class="header">GÉRER</li>
       <li><a href="users.php"><i class="fa fa-users"></i> <span>Utilisateurs</span></a></li>
+      <li><a href="contact.php"><i class="fa fa-id-card"></i> <span>Contacts</span></a></li>
+      <li><a href="abonne.php"><i class="fa fa-adn"></i> <span>Abonnés</span></a></li>
       <li class="treeview">
         <a href="#">
           <i class="fa fa-barcode"></i>

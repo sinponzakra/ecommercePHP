@@ -4,12 +4,6 @@
     header('location: cart_view.php');
   }
 
-  if(isset($_SESSION['captcha'])){
-    $now = time();
-    if($now >= $_SESSION['captcha']){
-      unset($_SESSION['captcha']);
-    }
-  }
 
 ?>
 <?php include 'includes/header.php'; ?>
@@ -58,15 +52,6 @@
             <input type="password" class="form-control" name="repassword" placeholder="Retaper le mot de passe" required>
             <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
           </div>
-          <?php
-            if(!isset($_SESSION['captcha'])){
-              echo '
-                <di class="form-group" style="width:100%;">
-                  <div class="g-recaptcha" data-sitekey="6LevO1IUAAAAAFX5PpmtEoCxwae-I8cCQrbhTfM6"></div>
-                </di>
-              ';
-            }
-          ?>
           <hr>
       		<div class="row">
     			<div class="col-xs-4" style="margin-left: 30%">
