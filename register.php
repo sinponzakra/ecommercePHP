@@ -34,8 +34,8 @@
 				//generate code
 				$set='123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 				$code=substr(str_shuffle($set), 0, 12);
-					$stmt = $conn->prepare("INSERT INTO users (email, type, password, firstname, lastname, activate_code, created_on) VALUES (:email, :type,:password, :firstname, :lastname, :code, :now)");
-					$stmt->execute(['email'=>$email, 'type'=> 0, 'password'=>$password, 'firstname'=>$firstname, 'lastname'=>$lastname, 'code'=>$code, 'now'=>$now]);	
+					$stmt = $conn->prepare("INSERT INTO users (email, type, password, firstname, lastname, activate_code, created_on, status) VALUES (:email, :type,:password, :firstname, :lastname, :code, :now, :status)");
+					$stmt->execute(['email'=>$email, 'type'=> 0, 'password'=>$password, 'firstname'=>$firstname, 'lastname'=>$lastname, 'code'=>$code, 'now'=>$now, 'status'=>1]);	
 
 					$_SESSION['success'] = 'le compte a été créé avec succès.';
 				        header('location: signup.php');			

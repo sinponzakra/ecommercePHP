@@ -19,6 +19,27 @@ outline: none;
 }
 #paypal_btn:hover{ background: #e05c04; }
 
+
+.paypalbutton {
+    display: inline-block;
+    background-color: #2980B9;
+    color: #fff;
+    border-radius: 2%;
+    box-shadow: none;
+    cursor: pointer;
+    font-family: inherit;
+    margin-top: 10px;
+    float: right;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 16px 24px;
+    width: auto;
+}
+
+.paypalbutton:hover {
+    background-color: #3498DB;
+}
+
 </style>
 <div class="wrapper">
 
@@ -26,6 +47,30 @@ outline: none;
 	 
 	  <div class="content-wrapper">
 	    <div class="container">
+
+	    	<!-- Modal -->
+			<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			  <div class="modal-dialog modal-dialog-centered" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <img src="https://www.paypalobjects.com/webstatic/i/logo/rebrand/ppcom.svg"
+						 width="126px" height="33px">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			        <form action="sales.php" method="GET">
+			        	<label>Carte ID</label>
+					  <input type="text" class="form-control" name="pay"></input>
+					  <input type="submit" name="getPay" class="paypalbutton" />
+					</form>
+			      </div>
+			      <div class="modal-footer">
+			      </div>
+			    </div>
+			  </div>
+			</div>
 
 	      <!-- Main content -->
 	      <section class="content">
@@ -51,7 +96,7 @@ outline: none;
 	        		<?php
 	        			if(isset($_SESSION['user'])){
 	        				echo "
-	        					<div id='paypal_btn'>Paypal</div>
+	        					<button id='paypal_btn' type='button' data-toggle='modal' data-target='#exampleModalCenter'>Paypal</button>
 	        				";
 	        			}
 	        			else{
@@ -60,7 +105,7 @@ outline: none;
 	        				";
 	        			}
 	        		?>
-	        	</div>
+	        	</div>	
 	        	<div class="col-sm-3">
 	        		<?php include 'includes/sidebar.php'; ?>
 	        	</div>
@@ -173,9 +218,6 @@ function getTotal(){
 	});
 }
 
-$("#paypal_btn").click(function() {
-  alert("paypal");
-});
 </script>
 </body>
 </html>

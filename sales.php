@@ -1,7 +1,7 @@
 <?php
 	include 'includes/session.php';
 
-	if(isset($_GET['pay'])){
+	if(isset($_GET['getPay'])){
 		$payid = $_GET['pay'];
 		$date = date('Y-m-d');
 
@@ -10,7 +10,7 @@
 		try{
 			
 			$stmt = $conn->prepare("INSERT INTO sales (user_id, pay_id, sales_date) VALUES (:user_id, :pay_id, :sales_date)");
-			$stmt->execute(['user_id'=>$user['id'], 'pay_id'=>$payid, 'sales_date'=>$date]);
+			$stmt->execute(['user_id'=>$user['id'], 'pay_id'=>'PAY-'.$payid, 'sales_date'=>$date]);
 			$salesid = $conn->lastInsertId();
 			
 			try{
@@ -25,7 +25,7 @@
 				$stmt = $conn->prepare("DELETE FROM cart WHERE user_id=:user_id");
 				$stmt->execute(['user_id'=>$user['id']]);
 
-				$_SESSION['success'] = 'Transaction successful. Thank you.';
+				$_SESSION['success'] = 'Transaction réussie.';
 
 			}
 			catch(PDOException $e){
